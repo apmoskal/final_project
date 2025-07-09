@@ -18,7 +18,7 @@ st.markdown(
 )
 
 # Set a smaller width for the image (e.g., 400px)
-st.image("crops-growing-in-thailand.jpg", width=400)
+st.image("crops-growing-in-thailand.jpg", width=600)
 
 # Filters on Sidebar
 st.sidebar.header("Filters")  # Move filters to the sidebar
