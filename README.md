@@ -1,2 +1,2 @@
 # final_project
-config changes the theme
+under .streamlit -> config changes the theme colors
