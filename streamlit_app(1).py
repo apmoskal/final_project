@@ -60,7 +60,7 @@ selection = alt.selection_point(
 
 # Define a standard width and height for all charts
 CHART_WIDTH = 900
-CHART_HEIGHT = 600
+CHART_HEIGHT = 500
 
 # 1. Scatter plot with legend and selection
 scatter = alt.Chart(filtered_df).mark_circle().encode(
