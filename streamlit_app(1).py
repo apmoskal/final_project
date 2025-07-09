@@ -14,6 +14,8 @@ df = pd.read_csv('group_data.csv')
 
 st.title("Impact of Climate Change and Pesticide Use on Global Crop Yields 🌱")
 
+st.image("crops-growing-in-thailand.jpg", use_container_width=True)
+
 # Filters on Sidebar
 st.sidebar.header("Filters")  # Move filters to the sidebar
 
