@@ -30,7 +30,7 @@ temp_unit = st.sidebar.radio(
     index=0
 )
 
-# Ensure 'avg_temp' exists and handle conversion if needed
+# Ensure 'avg_temp' exists and convert
 if "avg_temp" in df.columns:
     if temp_unit == "Fahrenheit (°F)":
         df["avg_temp"] = df["avg_temp"] * 9 / 5 + 32
@@ -54,7 +54,7 @@ df['Year'] = df['Year'].dt.year
 country_options = ["All"] + sorted(df["country"].dropna().unique())
 country = st.sidebar.selectbox("Filter by Country", options=country_options)
 
-# Move Select Variable to sidebar
+# Selectbox: Select Variable
 x_axis_options = ['pesticides_tonnes', 'avg_temp', 'GDP_per_capita_clean', 'food_supply']
 # Show temperature with units
 x_axis_labels = {
@@ -65,6 +65,7 @@ x_axis_labels = {
 }
 x_axis_label_list = [x_axis_labels[key] for key in x_axis_options]
 x_axis_choice_label = st.sidebar.selectbox("Select Variable", options=x_axis_label_list)
+
 # Map label back to x_axis_options key
 x_axis_choice = [k for k,v in x_axis_labels.items() if v == x_axis_choice_label][0]
 x_axis_title = x_axis_labels[x_axis_choice]
