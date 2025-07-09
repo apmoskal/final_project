@@ -57,7 +57,7 @@ selection = alt.selection_point(
     on='click'
 )
 
-# Scatter plot with legend
+# 1. Scatter plot with legend
 scatter = alt.Chart(filtered_df).mark_circle().encode(
     x=alt.X(f'{x_axis_choice}:Q', title=x_axis_title),
     y=alt.Y('hg/ha_yield:Q', title='Yield (hg/ha)'),
@@ -70,22 +70,24 @@ scatter = alt.Chart(filtered_df).mark_circle().encode(
 ).add_params(
     selection
 ).properties(
-    width=500,
-    height=400
+    width=900,
+    height=400,
+    title='Scatter Plot: Yield vs. ' + x_axis_title
 ).interactive()
 
-# Box plot that responds to selection
+# 2. Box plot that responds to selection
 boxplot = alt.Chart(filtered_df).mark_boxplot().encode(
     x=alt.X('Item:N', title='Crop', axis=alt.Axis(labelAngle=-45)),
     y=alt.Y(f'{x_axis_choice}:Q', title=x_axis_title)
 ).transform_filter(
     selection
 ).properties(
-    width=500,
-    height=400
+    width=900,
+    height=400,
+    title=f'Box Plot: {x_axis_title} by Crop'
 )
 
-# Line chart: Yield over time by Crop (filtered by country selection)
+# 3. Line chart: Yield over time by Crop (filtered by country selection)
 line_chart = alt.Chart(filtered_df).mark_line(point=True).encode(
     x=alt.X('Year:O', title='Year'),
     y=alt.Y('sum(hg/ha_yield):Q', title='Total Yield (hg/ha)'),
@@ -94,19 +96,12 @@ line_chart = alt.Chart(filtered_df).mark_line(point=True).encode(
 ).transform_filter(
     selection
 ).properties(
-    width=1000,
+    width=900,
     height=400,
     title='Crop Yield Over Time by Crop (Filtered by Country)'
 ).interactive()
 
-# Combine charts with title
-chart = (scatter & boxplot | line_chart).properties(
-    title='Interactive Exploration of Crop Yield'
-).configure_view(
-    strokeWidth=0
-).configure_legend(
-    labelFontSize=12,
-    titleFontSize=13
-).resolve_scale(color='independent')
-
-st.altair_chart(chart, use_container_width=True)
+# Display all graphs one underneath the other
+st.altair_chart(scatter, use_container_width=True)
+st.altair_chart(boxplot, use_container_width=True)
+st.altair_chart(line_chart, use_container_width=True)
