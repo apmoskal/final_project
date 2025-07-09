@@ -17,6 +17,20 @@ st.title("Impact of Climate Change and Pesticide Use on Global Crop Yields 🌱"
 # Filters on Sidebar
 st.sidebar.header("Filters")  # Move filters to the sidebar
 
+# Temperature unit selector
+temp_unit = st.sidebar.radio(
+    "Temperature Unit",
+    options=["Celsius (°C)", "Fahrenheit (°F)"],
+    index=0
+)
+
+# Ensure 'avg_temp' exists and handle conversion if needed
+if "avg_temp" in df.columns:
+    if temp_unit == "Fahrenheit (°F)":
+        df["avg_temp"] = df["avg_temp"] * 9 / 5 + 32
+else:
+    st.warning("avg_temp column not found in data.")
+
 # Slider: Filter by Year
 df["Year"] = pd.to_datetime(df["Year"], errors='coerce')
 min_year = int(df["Year"].dt.year.min())
@@ -34,21 +48,26 @@ df['Year'] = df['Year'].dt.year
 country_options = ["All"] + sorted(df["country"].dropna().unique())
 country = st.sidebar.selectbox("Filter by Country", options=country_options)
 
+# Move Select Variable to sidebar
+x_axis_options = ['pesticides_tonnes', 'avg_temp', 'GDP_per_capita_clean', 'food_supply']
+# Show temperature with units
+x_axis_labels = {
+    'pesticides_tonnes': 'Pesticides (tonnes)',
+    'avg_temp': f'Avg Temp ({"°F" if temp_unit.startswith("Fahrenheit") else "°C"})',
+    'GDP_per_capita_clean': 'GDP per Capita',
+    'food_supply': 'Food Supply'
+}
+x_axis_label_list = [x_axis_labels[key] for key in x_axis_options]
+x_axis_choice_label = st.sidebar.selectbox("Select Variable", options=x_axis_label_list)
+# Map label back to x_axis_options key
+x_axis_choice = [k for k,v in x_axis_labels.items() if v == x_axis_choice_label][0]
+x_axis_title = x_axis_labels[x_axis_choice]
+
 # Filter the DataFrame based on selected country and year range
 if country == "All":
     filtered_df = df[df["Year"].between(*time_range)]
 else:
     filtered_df = df[(df["country"] == country) & (df["Year"].between(*time_range))]
-
-x_axis_options = ['pesticides_tonnes', 'avg_temp', 'GDP_per_capita_clean', 'food_supply']
-x_axis_choice = st.selectbox("Select Variable", options=x_axis_options)
-
-x_axis_title = {
-    'pesticides_tonnes': 'Pesticides (tonnes)',
-    'avg_temp': 'Avg Temp (°C)',
-    'GDP_per_capita_clean': 'GDP per Capita',
-    'food_supply': 'Food Supply'
-}.get(x_axis_choice, x_axis_choice)
 
 # Only scatter will have selection
 selection = alt.selection_point(
@@ -60,7 +79,7 @@ selection = alt.selection_point(
 
 # Define a standard width and height for all charts
 CHART_WIDTH = 900
-CHART_HEIGHT = 500
+CHART_HEIGHT = 400
 
 # 1. Scatter plot with legend and selection
 scatter = alt.Chart(filtered_df).mark_circle().encode(
@@ -85,7 +104,7 @@ boxplot = alt.Chart(filtered_df).mark_boxplot().encode(
     x=alt.X('Item:N', title='Crop', axis=alt.Axis(labelAngle=-45)),
     y=alt.Y(f'{x_axis_choice}:Q', title=x_axis_title)
 ).properties(
-    width=500,
+    width=CHART_WIDTH,
     height=CHART_HEIGHT,
     title=f'Box Plot: {x_axis_title} by Crop'
 )
