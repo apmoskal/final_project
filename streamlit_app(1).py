@@ -3,11 +3,20 @@ from PIL import Image
 import os
 import pandas as pd
 import altair as alt
+import numpy as np
+import pydeck as pdk
+
 
 # read in data
 df = pd.read_csv('group_data.csv')
 
-st.title("Impact of Climate Change and Pesticide Use on Global Crop Yields")
+st.title("Impact of Climate Change and Pesticide Use on Global Crop Yields 🌱")
+
+###### Config Page
+st.set_page_config(page_title="Crop Yield Impact Through Climate Change and Pesticides", layout="wide")
+
+# Filters on Sidebar
+st.sidebar.header("Filters")  # Move filters to the sidebar
 
 # Slider: Filter by Year
 df["Year"] = pd.to_datetime(df["Year"])
@@ -28,6 +37,11 @@ df['Year'] = df['Year'].dt.year
 #                     (df["Year"].between(*time_range))]
 # else:
 #     filtered_df = df[df["Year"].between(*time_range)]
+
+if country == "All Neighbourhoods":
+    filtered_df = df
+else:
+    filtered_df = df[df['neighbourhood_cleansed'] == selected_hood]
 
 filtered_df = df[df["Year"].between(*time_range)]
 x_axis_options = ['pesticides_tonnes', 'avg_temp', 'GDP_per_capita_clean', 'food_supply']
