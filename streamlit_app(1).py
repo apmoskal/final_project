@@ -6,6 +6,13 @@ import altair as alt
 import numpy as np
 import pydeck as pdk
 
+[theme]
+primaryColor = "#709255"
+backgroundColor = "#F3F1E7"
+secondaryBackgroundColor = "#F7DC6F"
+textColor = "#3A3A3A"
+font = "sans serif"
+
 st.set_page_config(page_title="Crop Yield Impact Through Climate Change and Pesticides", layout="wide")
 
 # read in data
