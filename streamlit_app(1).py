@@ -50,6 +50,7 @@ x_axis_title = {
     'food_supply': 'Food Supply'
 }.get(x_axis_choice, x_axis_choice)
 
+# Only scatter will have selection
 selection = alt.selection_point(
     fields=['country'],
     empty='all',
@@ -57,7 +58,7 @@ selection = alt.selection_point(
     on='click'
 )
 
-# 1. Scatter plot with legend
+# 1. Scatter plot with legend and selection
 scatter = alt.Chart(filtered_df).mark_circle().encode(
     x=alt.X(f'{x_axis_choice}:Q', title=x_axis_title),
     y=alt.Y('hg/ha_yield:Q', title='Yield (hg/ha)'),
@@ -75,26 +76,22 @@ scatter = alt.Chart(filtered_df).mark_circle().encode(
     title='Scatter Plot: Yield vs. ' + x_axis_title
 ).interactive()
 
-# 2. Box plot that responds to selection
+# 2. Box plot (no selection)
 boxplot = alt.Chart(filtered_df).mark_boxplot().encode(
     x=alt.X('Item:N', title='Crop', axis=alt.Axis(labelAngle=-45)),
     y=alt.Y(f'{x_axis_choice}:Q', title=x_axis_title)
-).transform_filter(
-    selection
 ).properties(
     width=900,
     height=400,
     title=f'Box Plot: {x_axis_title} by Crop'
 )
 
-# 3. Line chart: Yield over time by Crop (filtered by country selection)
+# 3. Line chart (no selection)
 line_chart = alt.Chart(filtered_df).mark_line(point=True).encode(
     x=alt.X('Year:O', title='Year'),
     y=alt.Y('sum(hg/ha_yield):Q', title='Total Yield (hg/ha)'),
     color=alt.Color('Item:N', title='Crop'),
     tooltip=['Year:O', 'Item:N', 'hg/ha_yield:Q', 'country:N']
-).transform_filter(
-    selection
 ).properties(
     width=900,
     height=400,
