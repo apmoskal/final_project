@@ -20,10 +20,6 @@ st.markdown(
 # Set a smaller width for the image (e.g., 400px)
 st.image("crops-growing-in-thailand.jpg", width=400)
 
-st.title("Impact of Climate Change and Pesticide Use on Global Crop Yields 🌱")
-
-st.image("crops-growing-in-thailand.jpg", use_container_width=True)
-
 # Filters on Sidebar
 st.sidebar.header("Filters")  # Move filters to the sidebar
 
