@@ -6,11 +6,19 @@ import altair as alt
 import numpy as np
 import pydeck as pdk
 
-# Set page config at the top (must be before any Streamlit component)
 st.set_page_config(page_title="Crop Yield Impact Through Climate Change and Pesticides", layout="wide")
 
 # read in data
 df = pd.read_csv('group_data.csv')
+
+# Smaller title using custom HTML and CSS
+st.markdown(
+    "<h2 style='font-size:2rem; margin-bottom: 1rem;'>Impact of Climate Change and Pesticide Use on Global Crop Yields 🌱</h2>",
+    unsafe_allow_html=True,
+)
+
+# Set a smaller width for the image (e.g., 400px)
+st.image("crops-growing-in-thailand.jpg", width=400)
 
 st.title("Impact of Climate Change and Pesticide Use on Global Crop Yields 🌱")
 
