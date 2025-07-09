@@ -60,7 +60,7 @@ selection = alt.selection_point(
 
 # Define a standard width and height for all charts
 CHART_WIDTH = 900
-CHART_HEIGHT = 400
+CHART_HEIGHT = 600
 
 # 1. Scatter plot with legend and selection
 scatter = alt.Chart(filtered_df).mark_circle().encode(
@@ -85,7 +85,7 @@ boxplot = alt.Chart(filtered_df).mark_boxplot().encode(
     x=alt.X('Item:N', title='Crop', axis=alt.Axis(labelAngle=-45)),
     y=alt.Y(f'{x_axis_choice}:Q', title=x_axis_title)
 ).properties(
-    width=CHART_WIDTH,
+    width=500,
     height=CHART_HEIGHT,
     title=f'Box Plot: {x_axis_title} by Crop'
 )
