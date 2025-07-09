@@ -99,8 +99,12 @@ line_chart = alt.Chart(filtered_df).mark_line(point=True).encode(
     title='Crop Yield Over Time by Crop (Filtered by Country)'
 ).interactive()
 
-# Combine charts with title
-chart = (scatter & boxplot | line_chart).properties(
+# Arrange plots: scatter above, boxplot next to it, and line chart below both
+top_row = scatter & boxplot
+final_chart = alt.vconcat(
+    top_row,
+    line_chart
+).properties(
     title='Interactive Exploration of Crop Yield'
 ).configure_view(
     strokeWidth=0
@@ -109,4 +113,4 @@ chart = (scatter & boxplot | line_chart).properties(
     titleFontSize=13
 ).resolve_scale(color='independent')
 
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(final_chart, use_container_width=True)
