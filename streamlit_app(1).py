@@ -58,6 +58,10 @@ selection = alt.selection_point(
     on='click'
 )
 
+# Define a standard width and height for all charts
+CHART_WIDTH = 900
+CHART_HEIGHT = 400
+
 # 1. Scatter plot with legend and selection
 scatter = alt.Chart(filtered_df).mark_circle().encode(
     x=alt.X(f'{x_axis_choice}:Q', title=x_axis_title),
@@ -71,8 +75,8 @@ scatter = alt.Chart(filtered_df).mark_circle().encode(
 ).add_params(
     selection
 ).properties(
-    width=900,
-    height=400,
+    width=CHART_WIDTH,
+    height=CHART_HEIGHT,
     title='Scatter Plot: Yield vs. ' + x_axis_title
 ).interactive()
 
@@ -81,8 +85,8 @@ boxplot = alt.Chart(filtered_df).mark_boxplot().encode(
     x=alt.X('Item:N', title='Crop', axis=alt.Axis(labelAngle=-45)),
     y=alt.Y(f'{x_axis_choice}:Q', title=x_axis_title)
 ).properties(
-    width=900,
-    height=400,
+    width=CHART_WIDTH,
+    height=CHART_HEIGHT,
     title=f'Box Plot: {x_axis_title} by Crop'
 )
 
@@ -93,12 +97,12 @@ line_chart = alt.Chart(filtered_df).mark_line(point=True).encode(
     color=alt.Color('Item:N', title='Crop'),
     tooltip=['Year:O', 'Item:N', 'hg/ha_yield:Q', 'country:N']
 ).properties(
-    width=900,
-    height=400,
+    width=CHART_WIDTH,
+    height=CHART_HEIGHT,
     title='Crop Yield Over Time by Crop (Filtered by Country)'
 ).interactive()
 
-# Display all graphs one underneath the other
-st.altair_chart(scatter, use_container_width=True)
-st.altair_chart(boxplot, use_container_width=True)
-st.altair_chart(line_chart, use_container_width=True)
+# Display all graphs one underneath the other (all same size)
+st.altair_chart(scatter, use_container_width=False)
+st.altair_chart(boxplot, use_container_width=False)
+st.altair_chart(line_chart, use_container_width=False)
