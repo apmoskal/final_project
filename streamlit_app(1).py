@@ -25,3 +25,7 @@ crops = [
 ]
 selected_crop = st.selectbox("Select a crop:", crops)
 st.write(f"You selected: {selected_crop}")
+if selected_crop == "Potatoes":
+    st.write("HI THERE")
+elif selected_crop == "Wheat":
+    st.write("HELLO")
