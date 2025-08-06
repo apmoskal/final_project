@@ -37,7 +37,7 @@ elif page == "Country":
                 (min_year, max_year)
         )
 
-df['Year'] = df['Year'].dt.year
+        df['Year'] = df['Year'].dt.year
 
         # Filter data
         filtered = df[(df['country'] == selected_country) & (years == selected_year)]
