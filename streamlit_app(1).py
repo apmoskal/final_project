@@ -25,7 +25,7 @@ crops = [
 ]
 selected_crop = st.selectbox("Select a crop:", crops)
 st.write(f"You selected: {selected_crop}")
-if selected_crop == "Maize, a member of the grains and grasses category, thrives in both tropical and temperate climates. It is well-suited to regions with low rainfall, typically ranging from 1 to 25 mm per week, and requires moderate light exposure of about 6 to 8 hours daily. The optimal temperature for maize growth is around 22.5°C, which supports healthy development and yield. Maize is a versatile crop with a wide range of uses, including human food, animal feed, and industrial applications, making it a crucial component in global agriculture and food systems.":
-    st.write("Maize is a plant that thrives")
+if selected_crop == "Maize":
+    st.write("Maize, a member of the grains and grasses category, thrives in both tropical and temperate climates. It is well-suited to regions with low rainfall, typically ranging from 1 to 25 mm per week, and requires moderate light exposure of about 6 to 8 hours daily. The optimal temperature for maize growth is around 22.5°C, which supports healthy development and yield. Maize is a versatile crop with a wide range of uses, including human food, animal feed, and industrial applications, making it a crucial component in global agriculture and food systems.")
 elif selected_crop == "Wheat":
     st.write("HELLO")
