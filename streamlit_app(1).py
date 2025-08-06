@@ -25,7 +25,8 @@ crops = [
 ]
 selected_crop = st.selectbox("Select a crop:", crops)
 st.write(f"You selected: {selected_crop}")
-if selected_crop == "Potatoes":
-    st.write("HI THERE")
+if selected_crop == "Maize":
+    st.write("Maize is a plant that thrives in 'Tropical/Temperate' conditions. Low (1-25 mm/week)	Moderate (6–8hrs)	22.5	Grains/Grasses	Human Food, Animal Feed, Industrial
+")
 elif selected_crop == "Wheat":
     st.write("HELLO")
