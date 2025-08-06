@@ -27,9 +27,17 @@ elif page == "Country":
         selected_country = st.selectbox("Select Country", country_options)
 
         # Parse years to integers for slider
-        years = df['Year'].apply(lambda x: int(str(x)[:4]))
-        year_min, year_max = years.min(), years.max()
-        selected_year = st.slider("Select Year", year_min, year_max, year_min)
+        df["Year"] = pd.to_datetime(df["Year"], errors='coerce')
+        min_year = int(df["Year"].dt.year.min())
+        max_year = int(df["Year"].dt.year.max())
+        time_range = st.sidebar.slider(
+            "Select Years",
+                min_year,
+                max_year,
+                (min_year, max_year)
+        )
+
+df['Year'] = df['Year'].dt.year
 
         # Filter data
         filtered = df[(df['country'] == selected_country) & (years == selected_year)]
