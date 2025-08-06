@@ -14,12 +14,11 @@ st.image("crops-growing-in-thailand.jpg", width=600)
 if page == "Crop Info":
     st.header("Basic Crop Information")
     columns_needed = ['Item', 'Plant Climate', 'Water Needs', 'Sunlight', 'Average Optimal Temp', 'Crop Type', 'Common Uses']
-if all(col in df.columns for col in columns_needed):
+    if all(col in df.columns for col in columns_needed):
     st.dataframe(df[columns_needed].drop_duplicates().reset_index(drop=True), use_container_width=True)
-else:
-    st.info("Some required columns are missing in the dataset.")
     else:
-        st.info("No crop information available.")
+    st.info("Some required columns are missing in the dataset.")
+
 elif page == "Country":
     st.header("Country")
     st.write("Select a country from the data for details (customize as needed).")
