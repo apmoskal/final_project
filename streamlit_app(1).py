@@ -20,6 +20,29 @@ if page == "Crop Info":
 elif page == "Country":
     st.header("Country")
     st.write("Select a country from the data for details (customize as needed).")
+
+    # Use 'country' and 'Year' columns from your CSV
+    if 'country' in df.columns and 'Year' in df.columns and 'hg/ha_yield' in df.columns:
+        country_options = sorted(df['country'].dropna().unique())
+        selected_country = st.selectbox("Select Country", country_options)
+
+        # Parse years to integers for slider
+        years = df['Year'].apply(lambda x: int(str(x)[:4]))
+        year_min, year_max = years.min(), years.max()
+        selected_year = st.slider("Select Year", year_min, year_max, year_min)
+
+        # Filter data
+        filtered = df[(df['country'] == selected_country) & (years == selected_year)]
+
+        if not filtered.empty:
+            st.subheader(f"Crop Yield in {selected_country} for {selected_year}")
+            # Sum yields for each crop and sort descending
+            yield_by_crop = filtered.groupby('Item')['hg/ha_yield'].sum().sort_values(ascending=False)
+            st.bar_chart(yield_by_crop)
+        else:
+            st.info("No data available for the selected country and year.")
+    else:
+        st.info("Required columns are missing in the dataset.")
 elif page == "Yield by GDP":
     st.header("Yield by GDP")
     st.write("Analyze crop yield by GDP per capita here (customize as needed).")
