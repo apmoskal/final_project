@@ -9,3 +9,19 @@ st.markdown("<h2 style='font-size:2rem; margin-bottom: 1rem;'>Crops, Countries, 
 st.image("crops-growing-in-thailand.jpg", width=600)
 
 st.header("Basic Crop Information")
+
+# Dropdown for crop selection
+crops = [
+    "Maize",
+    "Potatoes",
+    "Rice, paddy",
+    "Sorghum",
+    "Soybeans",
+    "Wheat",
+    "Cassava",
+    "Sweet potatoes",
+    "Plantains and others",
+    "Yams"
+]
+selected_crop = st.selectbox("Select a crop:", crops)
+st.write(f"You selected: {selected_crop}")
