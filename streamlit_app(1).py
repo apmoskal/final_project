@@ -1,14 +1,14 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Crop Yield Impact Through Climate Change and Pesticides", layout="wide")
+st.set_page_config(page_title="Crops, Countries, and Cost of Living", layout="wide")
 
 df = pd.read_csv('group_data.csv')
 
 # Sidebar for page selection using radio buttons (always visible)
 page = st.sidebar.radio("Select a page", ["Crop Info", "Country", "Yield by GDP"])
 
-st.markdown("<h2 style='font-size:2rem; margin-bottom: 1rem;'>Impact of Climate Change and Pesticide Use on Global Crop Yields 🌱</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:2rem; margin-bottom: 1rem;'>Crops, Countries, and Cost of Living 🌱</h2>", unsafe_allow_html=True)
 st.image("crops-growing-in-thailand.jpg", width=600)
 
 if page == "Crop Info":
